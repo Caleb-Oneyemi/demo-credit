@@ -1,0 +1,17 @@
+export interface CreateAccountInput {
+  balance: number
+  ownerId: number
+}
+
+export interface UpdateAccountInput {
+  amount: number
+  ownerId: number
+}
+
+export interface Account {
+  id: number
+  balance: number
+  ownerId: number
+  created_at: Date
+  updated_at: Date
+}

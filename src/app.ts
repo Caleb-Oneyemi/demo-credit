@@ -4,7 +4,7 @@ import helmet from 'helmet'
 import compression from 'compression'
 
 import { errorHandler } from './common'
-import { userRoutes, authRoutes } from './modules'
+import { userRoutes, authRoutes, accountRoutes } from './modules'
 
 const app = express()
 
@@ -21,6 +21,8 @@ app.use(
 app.use('/api/users', userRoutes)
 
 app.use('/api/auth', authRoutes)
+
+app.use('/api/accounts', accountRoutes)
 
 app.use(errorHandler)
 
