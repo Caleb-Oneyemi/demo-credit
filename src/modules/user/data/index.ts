@@ -1,8 +1,12 @@
 import { db } from '../../../db'
-import { CreateUserInput } from '../types'
+import { CreateUserInput, User } from '../types'
 
 const insertNewUser = async (user: CreateUserInput): Promise<number[]> => {
   return db('users').insert(user)
 }
 
-export { insertNewUser }
+const getUserByEmail = async (email: string) => {
+  return db<User>('users').where('email', email).first()
+}
+
+export { insertNewUser, getUserByEmail }

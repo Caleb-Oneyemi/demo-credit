@@ -1,5 +1,5 @@
-import jwt, { JwtPayload } from 'jsonwebtoken'
-import { CreateUserInput } from '../../modules/user'
+import jwt from 'jsonwebtoken'
+import { CreateUserInput, User } from '../../modules/user'
 
 export const generateToken = (
   id: number,
@@ -12,6 +12,6 @@ export const generateToken = (
 
 export const validateToken = (token: string) => {
   const signature = process.env.JWT_SECRET as string
-  const payload = jwt.verify(token, signature) as JwtPayload
+  const payload = jwt.verify(token, signature) as User
   return payload
 }
