@@ -1,7 +1,7 @@
 {
   "name": "demo-credit",
   "version": "1.0.0",
-  "main": "src/index.ts",
+  "main": "dist/index.js",
   "author": "Caleb Oneyemi",
   "license": "MIT",
   "engines": {
@@ -10,7 +10,9 @@
   "scripts": {
     "start": "node dist/index.js",
     "build": "tsc --project tsconfig.prod.json",
-    "dev": "nodemon src/index.ts"
+    "dev": "nodemon src/index.ts",
+    "migrate": "knex migrate:latest --knexfile ./src/db/config.ts",
+    "rollback": "knex migrate:rollback --knexfile ./src/db/config.ts"
   },
   "dependencies": {
     "bull": "^4.10.0",
@@ -21,6 +23,8 @@
     "helmet": "^6.0.0",
     "http-status": "^1.5.3",
     "jsonwebtoken": "^8.5.1",
+    "knex": "^2.3.0",
+    "mysql2": "^2.3.3",
     "winston": "^3.8.2",
     "zod": "^3.19.1"
   },
