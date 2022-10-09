@@ -4,6 +4,7 @@ import helmet from 'helmet'
 import compression from 'compression'
 
 import { errorHandler } from './common'
+import { userRoutes } from './modules'
 
 const app = express()
 
@@ -16,6 +17,8 @@ app.use(
     extended: true,
   }),
 )
+
+app.use('/api/users', userRoutes)
 
 app.use(errorHandler)
 
