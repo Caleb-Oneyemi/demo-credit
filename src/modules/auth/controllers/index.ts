@@ -1,5 +1,5 @@
 import { ResponseData, verifyPassword, generateToken } from '../../../common'
-import { getUserByEmail } from '../../user'
+import { getUserByEmail } from '../../users'
 import { LoginInput } from '../types'
 
 export const loginUser = async ({

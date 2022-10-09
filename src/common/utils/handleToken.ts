@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken'
-import { CreateUserInput, User } from '../../modules/user'
+import { CreateUserInput, User } from '../../modules/users'
 
 export const generateToken = (
   id: number,
