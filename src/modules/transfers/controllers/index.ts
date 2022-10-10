@@ -1,5 +1,5 @@
 import { ResponseData } from '../../../common'
-import { CreateTransferInput } from '../types'
+import { CreateTransferInput, Transfer } from '../types'
 import {
   handleTransfer,
   getUserTransferHistory,
@@ -11,7 +11,7 @@ export const transferFunds = async (
 ): Promise<ResponseData> => {
   const id = await handleTransfer(input)
   if (typeof id !== 'number') return null
-  return getTransferById(id)
+  return getTransferById(id) as Promise<Transfer>
 }
 
 export const getAllTransfers = async (id: number): Promise<ResponseData> => {

@@ -3,7 +3,7 @@ import { Transfer, CreateTransferInput } from '../types'
 
 export const handleTransfer = async (input: CreateTransferInput) => {
   const { senderId, receiverId, amount } = input
-  let transferId = null
+  let transferId: number | undefined
 
   await db.transaction(async (trx) => {
     const [res] = await Promise.all([
@@ -27,7 +27,7 @@ export const handleTransfer = async (input: CreateTransferInput) => {
 }
 
 export const getTransferById = async (id: number) => {
-  return db<Transfer>('transfers').where('id', id)
+  return db<Transfer>('transfers').where('id', id).first()
 }
 
 export const getUserTransferHistory = async (id: number) => {
