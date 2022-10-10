@@ -50,7 +50,7 @@ router.patch(
         amount,
       })
 
-      res.status(httpStatus.CREATED).send({
+      res.status(httpStatus.OK).send({
         message: 'WALLET DEBITED SUCCESSFULLY',
         isSuccess: true,
         data,
@@ -73,7 +73,7 @@ router.patch(
         amount,
       })
 
-      res.status(httpStatus.CREATED).send({
+      res.status(httpStatus.OK).send({
         message: 'WALLET CREDITED SUCCESSFULLY',
         isSuccess: true,
         data,
