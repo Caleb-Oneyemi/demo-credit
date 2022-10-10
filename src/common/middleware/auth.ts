@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from 'express'
+import { TokenExpiredError } from 'jsonwebtoken'
 import { validateToken } from '../utils'
 import { NotAuthenticatedError } from '../errors'
 
@@ -16,7 +17,11 @@ export const isAuthenticated = (
   try {
     user = validateToken(token)
   } catch (err) {
-    return next(new NotAuthenticatedError('Not Authenticated'))
+    if (err instanceof TokenExpiredError) {
+      return next(new NotAuthenticatedError('Token Expired'))
+    }
+
+    return next(new NotAuthenticatedError('Invalid Token'))
   }
 
   req.user = user

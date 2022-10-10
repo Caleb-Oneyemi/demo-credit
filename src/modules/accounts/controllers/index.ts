@@ -1,9 +1,10 @@
 import { ResponseData } from '../../../common'
-import { CreateAccountInput, UpdateAccountInput } from '../types'
+import { Account, CreateAccountInput, UpdateAccountInput } from '../types'
 import {
   createAccount,
   deductAmountFromAccountBalance,
   addAmountToAccountBalance,
+  getAccountById,
 } from '../data'
 
 export const createUserWallet = async (
@@ -16,13 +17,13 @@ export const createUserWallet = async (
 export const debitUserWallet = async (
   input: UpdateAccountInput,
 ): Promise<ResponseData> => {
-  const data = await deductAmountFromAccountBalance(input)
-  return data
+  const id = await deductAmountFromAccountBalance(input)
+  return getAccountById(id) as Promise<Account>
 }
 
 export const creditUserWallet = async (
   input: UpdateAccountInput,
 ): Promise<ResponseData> => {
-  const data = await addAmountToAccountBalance(input)
-  return data
+  const id = await addAmountToAccountBalance(input)
+  return getAccountById(id) as Promise<Account>
 }
