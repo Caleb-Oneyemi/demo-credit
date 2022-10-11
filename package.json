@@ -8,9 +8,9 @@
     "node": ">=16.17.1"
   },
   "scripts": {
-    "start": "node dist/index.js",
+    "start": "yarn migrate && node dist/index.js",
     "build": "tsc --project tsconfig.prod.json",
-    "dev": "nodemon src/index.ts",
+    "dev": "yarn migrate && nodemon src/index.ts",
     "test": "NODE_ENV=test jest",
     "migrate": "knex migrate:latest --knexfile ./src/db/config.ts",
     "rollback": "knex migrate:rollback --knexfile ./src/db/config.ts"
