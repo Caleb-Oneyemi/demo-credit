@@ -11,10 +11,10 @@ const config = {
     port: process.env.DB_PORT,
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
-    database: 'demo_credit',
+    database: process.env.DB_NAME,
   },
   migrations: {
-    tableName: 'demo_credit_migrations',
+    tableName: process.env.MIGRATIONS_TABLE,
   },
   useNullAsDefault: true,
 } as Knex.Config
