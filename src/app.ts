@@ -3,7 +3,7 @@ import cors from 'cors'
 import helmet from 'helmet'
 import compression from 'compression'
 
-import { errorHandler } from './common'
+import { errorHandler, NotFoundError } from './common'
 import {
   userRoutes,
   authRoutes,
@@ -30,6 +30,10 @@ app.use('/api/auth', authRoutes)
 app.use('/api/accounts', accountRoutes)
 
 app.use('/api/transfers', transferRoutes)
+
+app.all('*', (req, res, next) => {
+  next(new NotFoundError('route not found'))
+})
 
 app.use(errorHandler)
 

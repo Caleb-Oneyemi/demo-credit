@@ -3,7 +3,7 @@ export const user = {
   name: 'user1',
   email: 'user1@mail.co',
   password: 'pass',
-}
+} as const
 
 export const account = {
   id: 1,
@@ -11,7 +11,7 @@ export const account = {
   ownerId: user.id,
   createdAt: new Date(),
   updatedAt: new Date(),
-}
+} as const
 
 export const transfer = {
   id: 1,
@@ -20,4 +20,4 @@ export const transfer = {
   receiverId: 2,
   createdAt: new Date(),
   updatedAt: new Date(),
-}
+} as const
