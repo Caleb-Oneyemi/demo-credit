@@ -18,12 +18,6 @@ export const accountCreationValidator = async (
       return next(new BadRequestError('wallet already exists for user'))
     }
 
-    if (req.body.amount <= 1) {
-      return next(
-        new BadRequestError('funds to be deposited must exceed 1 naira'),
-      )
-    }
-
     next()
   } catch (err: any) {
     if (err instanceof ZodError) {

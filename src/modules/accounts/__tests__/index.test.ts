@@ -76,7 +76,10 @@ describe('ACCOUNT TESTS', () => {
       expect(result.statusCode).toBe(400)
       expect(result.body.isSuccess).toBe(false)
       expect(result.body.errors).toEqual([
-        { message: 'funds to be deposited must exceed 1 naira' },
+        {
+          message: 'amount must equal or exceed 1 naira',
+          field: 'amount',
+        },
       ])
     })
 
@@ -159,11 +162,10 @@ describe('ACCOUNT TESTS', () => {
 
       jest
         .spyOn(Data, 'getAccountByOwnerId')
-        .mockImplementation(async () => account)
-
-      jest.spyOn(Data, 'getAccountById').mockImplementation(async () => {
-        return { ...account, balance: newBalance }
-      })
+        .mockImplementationOnce(async () => account)
+        .mockImplementationOnce(async () => {
+          return { ...account, balance: newBalance }
+        })
 
       const result = await request
         .patch('/api/accounts/credit')
@@ -253,11 +255,10 @@ describe('ACCOUNT TESTS', () => {
 
       jest
         .spyOn(Data, 'getAccountByOwnerId')
-        .mockImplementation(async () => account)
-
-      jest.spyOn(Data, 'getAccountById').mockImplementation(async () => {
-        return { ...account, balance: newBalance }
-      })
+        .mockImplementationOnce(async () => account)
+        .mockImplementationOnce(async () => {
+          return { ...account, balance: newBalance }
+        })
 
       const result = await request
         .patch('/api/accounts/debit')

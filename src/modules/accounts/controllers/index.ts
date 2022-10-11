@@ -4,7 +4,7 @@ import {
   createAccount,
   deductAmountFromAccountBalance,
   addAmountToAccountBalance,
-  getAccountById,
+  getAccountByOwnerId,
 } from '../data'
 
 export const createUserWallet = async (
@@ -17,13 +17,13 @@ export const createUserWallet = async (
 export const debitUserWallet = async (
   input: UpdateAccountInput,
 ): Promise<ResponseData> => {
-  const id = await deductAmountFromAccountBalance(input)
-  return getAccountById(id) as Promise<Account>
+  await deductAmountFromAccountBalance(input)
+  return getAccountByOwnerId(input.ownerId) as Promise<Account>
 }
 
 export const creditUserWallet = async (
   input: UpdateAccountInput,
 ): Promise<ResponseData> => {
-  const id = await addAmountToAccountBalance(input)
-  return getAccountById(id) as Promise<Account>
+  await addAmountToAccountBalance(input)
+  return getAccountByOwnerId(input.ownerId) as Promise<Account>
 }

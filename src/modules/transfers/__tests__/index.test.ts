@@ -63,7 +63,7 @@ describe('Transfers TESTS', () => {
       expect(result.body.isSuccess).toBe(false)
       expect(result.body.errors).toEqual([
         {
-          message: 'Transfer sum must be greater than or equal to one Naira',
+          message: 'amount must equal or exceed 1 naira',
           field: 'amount',
         },
       ])
