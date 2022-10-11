@@ -41,10 +41,12 @@ describe('USER TESTS', () => {
         .post('/api/users')
         .send({ name: user.name, password: user.password, email: user.email })
 
-      expect(result.statusCode).toBe(400)
-      expect(result.body.errors[0]).toEqual({
-        message: 'email already taken',
-      })
+      expect(result.statusCode).toBe(409)
+      expect(result.body.errors).toEqual([
+        {
+          message: 'Email already taken',
+        },
+      ])
       expect(result.body.isSuccess).toBe(false)
     })
 

@@ -1,6 +1,6 @@
 import httpStatus from 'http-status'
 import { Router, Request, NextFunction } from 'express'
-import { BadRequestError, CustomResponse } from '../../../common'
+import { CustomResponse } from '../../../common'
 import { userCreationValidator } from '../middleware'
 import { createUser } from '../controllers'
 
@@ -12,9 +12,6 @@ router.post(
   async (req: Request, res: CustomResponse, next: NextFunction) => {
     try {
       const data = await createUser(req.body)
-      if (data === null) {
-        throw new BadRequestError('email already taken')
-      }
 
       res.status(httpStatus.CREATED).send({
         message: 'USER CREATED SUCCESSFULLY',
