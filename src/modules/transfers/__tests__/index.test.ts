@@ -2,12 +2,21 @@ import supertest from 'supertest'
 import * as TransferData from '../data'
 import * as AccountData from '../../accounts/data'
 import { app } from '../../../app'
-import { user, account, transfer } from '../../../test'
+import { user, account, transfer, SqlError } from '../../../test'
 import { generateToken } from '../../../common'
+import { logger } from '../../../logger'
 
 const request = supertest(app)
 
 let testToken: string
+
+jest.mock('../../../logger', () => {
+  return {
+    logger: {
+      warn: jest.fn(),
+    },
+  }
+})
 
 beforeAll(() => {
   testToken = generateToken(user.id, {
@@ -150,9 +159,10 @@ describe('Transfers TESTS', () => {
 
     test('Transfer fails if db transaction fails', async () => {
       const msg = 'db transaction failed, rolling back'
+
       jest
         .spyOn(TransferData, 'handleTransfer')
-        .mockImplementation(() => Promise.reject(new Error(msg)))
+        .mockImplementation(() => Promise.reject(new SqlError(msg)))
 
       const result = await request
         .post('/api/transfers')
@@ -164,9 +174,10 @@ describe('Transfers TESTS', () => {
 
       expect(result.statusCode).toBe(500)
       expect(result.body.isSuccess).toBe(false)
+      expect(logger.warn).toHaveBeenCalledTimes(1)
       expect(result.body.errors).toMatchObject([
         {
-          message: msg,
+          message: 'something went wrong',
         },
       ])
     })

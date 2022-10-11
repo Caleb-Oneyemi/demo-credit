@@ -2,6 +2,7 @@ import httpStatus from 'http-status'
 import { Request, NextFunction } from 'express'
 import { CustomError } from '../errors'
 import { CustomResponse } from '../types'
+import { logger } from '../../logger'
 
 export const errorHandler = (
   err: Error,
@@ -15,8 +16,14 @@ export const errorHandler = (
       .send({ errors: err.serializeErrors(), isSuccess: false })
   }
 
+  let message = err.message
+  if (Object.prototype.hasOwnProperty.call(err, 'sql')) {
+    logger.warn(err)
+    message = 'something went wrong'
+  }
+
   return res.status(httpStatus.INTERNAL_SERVER_ERROR).send({
-    errors: [{ message: err.message || 'something went wrong' }],
+    errors: [{ message }],
     isSuccess: false,
   })
 }
