@@ -9,6 +9,16 @@ Demo Credit is an API with wallet functionality. It allows users do the followin
 * Withdraw funds from their wallet account
 * Transfer funds to another user’s wallet account
 
+### SPEC
+
+* Users need to register before performing any of the fundamental operations such as creating wallet accounts or transferring funds.
+* After registration, a user can also login. Input sent to the registration and login APIs are all validated.
+* Once the user logs in, they can create a wallet account. A user can only create one wallet account. The wallet account is linked to the user that is logged in. Input sent to the wallet account creation API is also validated, It only allows a deposit of one naira and above. Also since a user is only allowed to have one wallet account, attempting to create a second one returns an error response.
+* A user can credit their wallet account as long as they have already created one prior. A users registration does not automatically mean they have a wallet. There are no limits to how much money a user can credit at once. As long as the amount is above one naira, the credit will be successful.
+* A user can also withdraw funds from their wallet account as long as they have already created one prior. A users registration does not automatically mean they have a wallet. The amount to be withdrawn must exceed one naira and must also exceed the users current wallet account balance.
+* A user can also initiate transfers to other users based on their wallet account id. For this to happen, a couple of things need to be validated. The receiver wallet account id must differ from the sender id, hence a user cannot transfer funds to his or her own account. Both the sender and the receiver must have an existing wallet created and the sender must have sufficient account balance to complete the transfer. There are no limits to how much funds a user can transfer at once as long as his or her balance is sufficient for the transfer. Also, Since a wallet account is tied to the logged in user, a user cannot initiate transfers for other users.
+* A user can also retrieve all transfers they have sent or received.
+
 ### TECH STACK
 
 * TypeScript
