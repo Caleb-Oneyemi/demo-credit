@@ -8,13 +8,21 @@ const request = supertest(app)
 describe('USER TESTS', () => {
   describe('POST /api/users', () => {
     test('User account creation fails when invalid input is sent', async () => {
-      const result = await request.post('/api/users').send({})
+      const result = await request
+        .post('/api/users')
+        .send({ name: '', password: '   ' })
 
       expect(result.statusCode).toBe(400)
       expect(result.body.errors).toEqual([
-        { message: 'Required', field: 'name' },
+        {
+          message: 'String must contain at least 3 character(s)',
+          field: 'name',
+        },
         { message: 'Required', field: 'email' },
-        { message: 'Required', field: 'password' },
+        {
+          message: 'String must contain at least 4 character(s)',
+          field: 'password',
+        },
       ])
       expect(result.body.isSuccess).toBe(false)
     })
